@@ -1,0 +1,54 @@
+{
+    "name": "Bird",
+    "maps": [
+        {
+            "name": "Bird",
+            "id": "10bf66aa-6e21-4b1d-a019-3983411c5d32",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "7e3bfc55-3212-4663-8550-8df97ba0616b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "f2aa03b9-2467-48d5-9c1d-94d3ceb85291",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "01e08d73-5d4f-4773-b169-8b14cd408d6e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c3d22c3-2923-4790-97d1-dbecd61f9efa",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
