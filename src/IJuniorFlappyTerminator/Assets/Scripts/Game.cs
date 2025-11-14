@@ -1,5 +1,4 @@
 ﻿using Birds;
-using Enemies;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour
 {
     [SerializeField] private Bird _bird;
-    [SerializeField] private EnemySpawner _enemySpawner;
     
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
