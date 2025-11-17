@@ -1,34 +1,52 @@
 ﻿using System;
 using Enemies;
-using Interactable;
+using Shoot.Birds;
 using Shoot.Enemies;
 using UnityEngine;
+using Edge = Enemies.Edge;
 
 namespace Birds
 {
     [RequireComponent(typeof(BirdMover))]
+    [RequireComponent(typeof(BirdShooter))]
     [RequireComponent(typeof(BirdCollisionHandler))]
-    [RequireComponent(typeof(ScoreCounter))]
-    public class Bird : MonoBehaviour
+    [RequireComponent(typeof(BirdInputHandler))]
+    public class Bird : MonoBehaviour, IHittable
     {
-        private BirdMover _birdMover;
-        private BirdCollisionHandler _handler;
-        private ScoreCounter _scoreCounter;
+        private BirdMover _mover;
+        private BirdShooter _shooter;
+        private BirdCollisionHandler _collisionHandler;
+        private BirdInputHandler _inputHandler;
 
         public event Action GameOver;
 
         private void Awake()
         {
-            _birdMover = GetComponent<BirdMover>();
-            _handler = GetComponent<BirdCollisionHandler>();
-            _scoreCounter = GetComponent<ScoreCounter>();
+            _mover = GetComponent<BirdMover>();
+            _shooter = GetComponent<BirdShooter>();
+            _collisionHandler = GetComponent<BirdCollisionHandler>();
+            _inputHandler = GetComponent<BirdInputHandler>();
         }
 
-        private void OnEnable() => 
-            _handler.CollisionDetected += ProcessCollision;
+        private void OnEnable()
+        {
+            _inputHandler.Moved += Move;
+            _inputHandler.Shot += Shoot;
+            _collisionHandler.CollisionDetected += ProcessCollision;
+        }
 
-        private void OnDisable() => 
-            _handler.CollisionDetected -= ProcessCollision;
+        private void OnDisable()
+        {
+            _inputHandler.Moved -= Move;
+            _inputHandler.Shot -= Shoot;
+            _collisionHandler.CollisionDetected -= ProcessCollision;
+        }
+
+        private void Move() => 
+            _mover.Move();
+
+        private void Shoot() => 
+            _shooter.Shoot();
 
         private void ProcessCollision(IInteractable interactable)
         {
@@ -38,8 +56,8 @@ namespace Birds
 
         public void Reset()
         {
-            _scoreCounter.Reset();
-            _birdMover.Reset();
+            _mover.Reset();
+            _shooter.Reset();
         }
     }
 }

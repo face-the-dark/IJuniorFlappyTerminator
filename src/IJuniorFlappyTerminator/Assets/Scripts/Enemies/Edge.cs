@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Interactable
+namespace Enemies
 {
     public class Edge : MonoBehaviour, IInteractable
     {

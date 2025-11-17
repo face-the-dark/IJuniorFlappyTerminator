@@ -1,17 +1,8 @@
-﻿using System;
-using Enemies;
-using UnityEngine;
+﻿using Enemies;
 
 namespace Shoot.Birds
 {
-    public class BirdBullet : Bullet
+    public class BirdBullet : Bullet<Enemy>
     {
-        public event Action<Enemy, BirdBullet> EnemyHit;
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.TryGetComponent(out Enemy enemy)) 
-                EnemyHit?.Invoke(enemy, this);
-        }
     }
 }

@@ -1,59 +1,25 @@
 ﻿using System.Collections;
+using Birds;
 using UnityEngine;
 
 namespace Shoot.Enemies
 {
-    public class EnemyShooter : Shooter
+    public class EnemyShooter : Shooter<Bird>
     {
         private const float InverseScale = -1f;
-        
+
         [SerializeField] private float _fireRate = 2f;
 
         private Coroutine _shootCoroutine;
-        private Coroutine _delayCoroutine;
 
         public void StartShoot()
         {
-            StopDelayCoroutine();
-            _delayCoroutine = StartCoroutine(DelayFire());
-        }
-
-        public void StopShoot()
-        {
-            StopDelayCoroutine();
             StopShootCoroutine();
+            _shootCoroutine = StartCoroutine(Shoot());
         }
 
-        private IEnumerator DelayFire()
-        {
+        public void StopShoot() => 
             StopShootCoroutine();
-
-            WaitForSeconds wait = new WaitForSeconds(_fireRate);
-            
-            yield return wait;
-            
-            _shootCoroutine = StartCoroutine(Fire(wait));
-        }
-
-        private IEnumerator Fire(WaitForSeconds wait)
-        {
-            while (enabled)
-            {
-                Bullet bullet = Shoot(ShootPoint.right * InverseScale);
-
-                if (bullet is EnemyBullet enemyBullet) 
-                    enemyBullet.BirdHit += OnBirdHit;
-
-                yield return wait;
-            }
-        }
-
-        private void OnBirdHit(EnemyBullet enemyBullet)
-        {
-            enemyBullet.BirdHit -= OnBirdHit;
-            
-            BulletPool.Release(enemyBullet);
-        }
 
         private void StopShootCoroutine()
         {
@@ -63,13 +29,16 @@ namespace Shoot.Enemies
                 _shootCoroutine = null;
             }
         }
-        
-        private void StopDelayCoroutine()
+
+        private IEnumerator Shoot()
         {
-            if (_delayCoroutine != null)
+            WaitForSeconds wait = new WaitForSeconds(_fireRate);
+
+            while (enabled)
             {
-                StopCoroutine(_delayCoroutine);
-                _delayCoroutine = null;
+                yield return wait;
+
+                Shoot(ShootPoint.right * InverseScale);
             }
         }
     }

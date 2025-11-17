@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6721767359931105270}
   - component: {fileID: 7920241177214078054}
   - component: {fileID: 5574182703371359684}
-  - component: {fileID: 7697593669407525702}
   - component: {fileID: 4902292781377260464}
+  - component: {fileID: 6560329842933282244}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -136,21 +136,6 @@ CircleCollider2D:
   m_Offset: {x: -0.25, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &7697593669407525702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6097033033343245175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb6b7b97c8824eaa822f3df847efee6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 3554314697009744137, guid: 3b75f8b341ce40145b093e7543c64fb0, type: 3}
-  _poolCapacity: 5
-  _poolMaxSize: 5
 --- !u!114 &4902292781377260464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,8 +149,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootPoint: {fileID: 4220973396247236720}
-  BulletPool: {fileID: 7697593669407525702}
+  BulletSpawner: {fileID: 6560329842933282244}
   _fireRate: 0.5
+--- !u!114 &6560329842933282244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6097033033343245175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a12e195ecae4e8683fc074db36cb079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 3554314697009744137, guid: 3b75f8b341ce40145b093e7543c64fb0, type: 3}
+  _poolCapacity: 10
+  _poolMaxSize: 1000
 --- !u!1 &7320572972703277314
 GameObject:
   m_ObjectHideFlags: 0

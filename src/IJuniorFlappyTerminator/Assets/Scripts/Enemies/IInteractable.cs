@@ -1,4 +1,4 @@
-﻿namespace Interactable
+﻿namespace Enemies
 {
     public interface IInteractable
     {

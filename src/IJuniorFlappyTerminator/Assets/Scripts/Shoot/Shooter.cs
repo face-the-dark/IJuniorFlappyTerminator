@@ -2,18 +2,19 @@
 
 namespace Shoot
 {
-    public class Shooter : MonoBehaviour
+    public class Shooter<T> : MonoBehaviour where T : IHittable
     {
         [SerializeField] protected Transform ShootPoint;
-        [SerializeField] protected BulletPool BulletPool;
-        
-        protected Bullet Shoot(Vector2 direction)
+        [SerializeField] protected BulletSpawner<T> BulletSpawner;
+
+        public virtual void Reset() => 
+            BulletSpawner.Reset();
+
+        protected void Shoot(Vector2 direction)
         {
-            Bullet bullet = BulletPool.Get();
+            Bullet<T> bullet = BulletSpawner.Get();
             bullet.SetPosition(ShootPoint.position);
             bullet.Move(direction);
-            
-            return bullet;
         }
     }
 }

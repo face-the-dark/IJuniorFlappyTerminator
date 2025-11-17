@@ -206,7 +206,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 183393303}
-  - component: {fileID: 183393302}
   - component: {fileID: 183393301}
   m_Layer: 0
   m_Name: EnemySpawner
@@ -227,24 +226,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986ab276515542319031fcbb8f3bf527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _prefab: {fileID: 7920241177214078054, guid: e6c7b2c5bbde3bb4c8d0b270a32119f4, type: 3}
+  _poolCapacity: 10
+  _poolMaxSize: 1000
   _repeatRate: 3
   _spawnLowerBound: -3.5
   _spawnUpperBound: 3.5
---- !u!114 &183393302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183393300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 310e50e0a29149dea939b63bbf008d20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 7920241177214078054, guid: e6c7b2c5bbde3bb4c8d0b270a32119f4, type: 3}
-  _poolCapacity: 5
-  _poolMaxSize: 5
 --- !u!4 &183393303
 Transform:
   m_ObjectHideFlags: 0
@@ -1593,8 +1580,8 @@ GameObject:
   - component: {fileID: 1728936787}
   - component: {fileID: 1728936786}
   - component: {fileID: 1728936785}
-  - component: {fileID: 1728936789}
   - component: {fileID: 1728936788}
+  - component: {fileID: 1728936789}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Untagged
@@ -1872,8 +1859,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootPoint: {fileID: 278073139}
-  BulletPool: {fileID: 1728936789}
-  _enemyPool: {fileID: 183393302}
+  BulletSpawner: {fileID: 1728936789}
+  _enemySpawner: {fileID: 183393301}
 --- !u!114 &1728936789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1883,12 +1870,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1728936777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb6b7b97c8824eaa822f3df847efee6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d46b54817504f308b6d8d44170e34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 3918704988939918707, guid: 7a971c69c036d1c43bfacc0e0f4db404, type: 3}
-  _poolCapacity: 5
-  _poolMaxSize: 5
+  _poolCapacity: 10
+  _poolMaxSize: 1000
 --- !u!1 &1916302601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,7 +2165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe413f8bd2441c7bc9e7dd09f72b5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pool: {fileID: 183393302}
+  _enemySpawner: {fileID: 183393301}
 --- !u!61 &2146847738
 BoxCollider2D:
   m_ObjectHideFlags: 0

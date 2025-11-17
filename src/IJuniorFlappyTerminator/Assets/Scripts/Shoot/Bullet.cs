@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using Enemies;
 using UnityEngine;
 
 namespace Shoot
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public abstract class Bullet : MonoBehaviour
+    public abstract class Bullet<T> : MonoBehaviour, IInteractable where T : IHittable
     {
         [SerializeField] private float _speed = 10f;
         [SerializeField] private float _lifetime = 3f;
@@ -14,12 +15,17 @@ namespace Shoot
 
         private Coroutine _lifetimeCoroutine;
 
-        public event Action<Bullet> LifetimeExpired;
-
-        public bool IsInPool { get; set; }
+        public event Action<Bullet<T>> LifetimeExpired;
+        public event Action<T, Bullet<T>> Hit;
         
         private void Awake() =>
             _rigidbody2D = GetComponent<Rigidbody2D>();
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out T hit)) 
+                Hit?.Invoke(hit, this);
+        }
         
         public void SetPosition(Vector2 shootPointPosition) => 
             transform.position = shootPointPosition;
@@ -43,14 +49,7 @@ namespace Shoot
 
         private IEnumerator DecreaseLifetime()
         {
-            float currentLifeTime = _lifetime;
-
-            while (currentLifeTime >= 0)
-            {
-                currentLifeTime -= Time.deltaTime;
-                
-                yield return null;
-            }
+            yield return new WaitForSeconds(_lifetime);
             
             LifetimeExpired?.Invoke(this);
         }

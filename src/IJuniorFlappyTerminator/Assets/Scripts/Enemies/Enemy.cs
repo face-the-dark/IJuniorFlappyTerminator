@@ -1,15 +1,12 @@
-﻿using Interactable;
-using Shoot.Enemies;
+﻿using Shoot.Enemies;
 using UnityEngine;
 
 namespace Enemies
 {
     [RequireComponent(typeof(EnemyShooter))]
-    public class Enemy : MonoBehaviour, IInteractable
+    public class Enemy : MonoBehaviour, IInteractable, IHittable
     {
         private EnemyShooter _shooter;
-
-        public bool IsInPool { get; set; }
         
         private void Awake() => 
             _shooter = GetComponent<EnemyShooter>();

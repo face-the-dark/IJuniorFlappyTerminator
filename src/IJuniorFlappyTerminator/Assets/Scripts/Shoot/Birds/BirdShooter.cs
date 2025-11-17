@@ -1,45 +1,38 @@
-﻿using Birds;
-using Enemies;
+﻿using Enemies;
 using UnityEngine;
 
 namespace Shoot.Birds
 {
-    [RequireComponent(typeof(BirdInputHandler))]
     [RequireComponent(typeof(ScoreCounter))]
-    public class BirdShooter : Shooter
+    public class BirdShooter : Shooter<Enemy>
     {
-        [SerializeField] private EnemyPool _enemyPool;
-        
-        private BirdInputHandler _birdInputHandler;
+        [SerializeField] private EnemySpawner _enemySpawner;
+
         private ScoreCounter _scoreCounter;
-        
-        private void Awake()
-        {
-            _birdInputHandler = GetComponent<BirdInputHandler>();
+
+        private void Awake() =>
             _scoreCounter = GetComponent<ScoreCounter>();
-        }
 
         private void OnEnable() => 
-            _birdInputHandler.Shot += OnShot;
+            BulletSpawner.Hit += OnHit;
 
         private void OnDisable() => 
-            _birdInputHandler.Shot -= OnShot;
+            BulletSpawner.Hit -= OnHit;
 
-        private void OnShot()
+        public void Shoot() =>
+            Shoot(ShootPoint.right);
+
+        public override void Reset()
         {
-            Bullet bullet = Shoot(ShootPoint.right);
+            base.Reset();
 
-            if (bullet is BirdBullet birdBullet) 
-                birdBullet.EnemyHit += OnEnemyHit;
+            _scoreCounter.Reset();
         }
 
-        private void OnEnemyHit(Enemy enemy, BirdBullet birdBullet)
+        private void OnHit(Enemy enemy)
         {
             _scoreCounter.Add();
-            _enemyPool.Release(enemy);
-            
-            birdBullet.EnemyHit -= OnEnemyHit;
-            BulletPool.Release(birdBullet);
+            _enemySpawner.PutIntoPool(enemy);
         }
     }
 }

@@ -16,8 +16,16 @@ namespace UI
 
         protected abstract void OnButtonClick();
 
-        public abstract void Open();
-        
-        public abstract void Close();
+        public void Open()
+        {
+            WindowGroup.alpha = 1f;
+            ActionButton.interactable = true;
+        }
+
+        public void Close()
+        {
+            WindowGroup.alpha = 0f;
+            ActionButton.interactable = false;
+        }
     }
 }

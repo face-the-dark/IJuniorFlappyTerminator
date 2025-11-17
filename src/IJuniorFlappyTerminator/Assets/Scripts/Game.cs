@@ -1,11 +1,12 @@
 ﻿using Birds;
+using Enemies;
 using UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private Bird _bird;
+    [SerializeField] private EnemySpawner _enemySpawner;
     
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
@@ -45,15 +46,13 @@ public class Game : MonoBehaviour
     private void OnRestartButtonClick()
     {
         _gameOverScreen.Close();
-        ReloadScene();
+        StartGame();
     }
 
     private void StartGame()
     {
         Time.timeScale = 1;
         _bird.Reset();
+        _enemySpawner.Reset();
     }
-
-    private void ReloadScene() => 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 }

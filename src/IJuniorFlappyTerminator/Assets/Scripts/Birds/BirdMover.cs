@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Birds
 {
-    [RequireComponent(typeof(BirdInputHandler))]
     [RequireComponent(typeof(Rigidbody2D))]
     public class BirdMover : MonoBehaviour
     {
@@ -13,7 +12,6 @@ namespace Birds
         [SerializeField] private float _minRotationZ = -45f;
         [SerializeField] private float _maxRotationZ = 45f;
     
-        private BirdInputHandler _birdInputHandler;
         private Rigidbody2D _rigidbody2D;
     
         private Vector3 _startPosition;
@@ -22,7 +20,6 @@ namespace Birds
 
         private void Awake()
         {
-            _birdInputHandler = GetComponent<BirdInputHandler>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
@@ -34,16 +31,10 @@ namespace Birds
             _maxRotation = Quaternion.Euler(0, 0, _maxRotationZ);
         }
 
-        private void OnEnable() =>
-            _birdInputHandler.Moved += OnMoved;
-
-        private void OnDisable() => 
-            _birdInputHandler.Moved -= OnMoved;
-
         private void Update() => 
             transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, _rotaionSpeed * Time.deltaTime);
 
-        private void OnMoved()
+        public void Move()
         {
             _rigidbody2D.velocity = new Vector2(_speed, _flyForce);
             transform.rotation = _maxRotation;
